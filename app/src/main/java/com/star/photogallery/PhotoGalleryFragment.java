@@ -6,7 +6,6 @@ import android.app.SearchManager;
 import android.app.SearchableInfo;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -14,7 +13,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,7 +29,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class PhotoGalleryFragment extends Fragment {
+public class PhotoGalleryFragment extends VisibleFragment {
 
     private static final String TAG = "PhotoGalleryFragment";
 
@@ -56,11 +54,6 @@ public class PhotoGalleryFragment extends Fragment {
         setHasOptionsMenu(true);
 
         updateItems();
-
-//        Intent i = new Intent(getActivity(), PollService.class);
-//        getActivity().startService(i);
-
-//        PollService.setServiceAlarm(getActivity(), true);
 
         mThumbnailThread = new ThumbnailDownloader<>(new Handler());
         mThumbnailThread.setListener(new ThumbnailDownloader.Listener<ImageView>() {
@@ -109,8 +102,6 @@ public class PhotoGalleryFragment extends Fragment {
                 }
             }
         });
-
-//        setupAdapter();
 
         return v;
     }
@@ -246,12 +237,6 @@ public class PhotoGalleryFragment extends Fragment {
         searchView.setSearchableInfo(searchableInfo);
         searchView.setSubmitButtonEnabled(true);
 
-//        String query = PreferenceManager.getDefaultSharedPreferences(getActivity())
-//                .getString(FlickrFetchr.PREF_SEARCH_QUERY, null);
-//
-//        if (query != null) {
-//            searchView.setQuery(query, true);
-//        }
     }
 
     @Override
